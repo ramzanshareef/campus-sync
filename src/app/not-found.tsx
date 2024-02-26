@@ -1,8 +1,8 @@
 "use client";
 
-// import FooterComp from "@/ui/components/footer";
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "./(root)/Footer";
 
 export default function NotFound() {
     return (
@@ -33,7 +33,7 @@ export default function NotFound() {
 
                 </div>
             </div>
-            {/* <FooterComp /> */}
+            <Footer />
         </div>
     );
 }

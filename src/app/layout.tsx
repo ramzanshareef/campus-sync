@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
     subsets: ["vietnamese"],
@@ -25,6 +27,11 @@ export default function RootLayout({
             <body
                 className={`${roboto.className} antialiased`}
             >
+                <NextTopLoader
+                    color="#000fff"
+                    showSpinner={false}
+                />
+                <Toaster />
                 {children}
             </body>
         </html>
