@@ -20,14 +20,12 @@ export const PackageButton = ({ packageType }: { packageType: string }) => {
         default:
             break;
     }
-    return <Button variant="primary" className="mt-auto group gap-2"
+    return <Button variant="primary" className="mt-auto group gap-2 flex items-center justify-center"
         onClick={() => {
             router.push(href);
         }}
     >
         Get Started
-        <span className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out">
-            --&gt;
-        </span>
+        <span aria-hidden="true" className="text-lg group-hover:translate-x-3 transition-transform duration-300 ease-in-out">&rarr;</span>
     </Button>;
 };

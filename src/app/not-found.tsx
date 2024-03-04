@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "./(root)/Footer";
+import Footer from "../components/root/Footer";
 
 export default function NotFound() {
     return (

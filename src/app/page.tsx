@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, ClipboardIcon, CloudIcon, GaugeIcon, Menu, PuzzleIcon, UsersIcon, VideoIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "./(root)/Footer";
+import Footer from "../components/root/Footer";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { PackageButton } from "@/components/dashboard/PaymentButtons";
@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <>
             <div className="bg-white relative overflow-hidden">
-                <Image src="/img/beams-home@95.jpg" alt="" className="absolute -top-[1rem] left-1/2 -ml-[40rem] w-[163.125rem] max-w-none sm:-ml-[67.5rem] min-h-screen"
+                <Image src="/images/home/beams.jpg" alt="" className="absolute -top-[1rem] left-1/2 -ml-[40rem] w-[163.125rem] max-w-none sm:-ml-[67.5rem] min-h-screen"
                     width={2610} height={1635}
                     priority={true}
                 />
@@ -48,7 +48,7 @@ export default function Home() {
                             </div>
                             <div className="hidden lg:flex lg:gap-x-12">
                                 {navigation.map((item) => (
-                                    <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-4">
+                                    <Link key={item.name} href={item.href} className="text-sm leading-6 text-gray-900 hover:underline hover:underline-offset-4">
                                         {item.name}
                                     </Link>
                                 ))}
@@ -127,7 +127,7 @@ export default function Home() {
                     </div>
                     <div className="mx-auto max-w-2xl py-32 sm:py-48">
                         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/40 bg-slate-200 hover:shadow-md">
+                            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/100 bg-slate-100 hover:shadow-md">
                                 Announcing our new dynamic feature.{" "}
                                 <Link href="/" className="font-semibold text-indigo-600">
                                     <span className="absolute inset-0" aria-hidden="true" />
@@ -152,7 +152,7 @@ export default function Home() {
                                         <span
                                             className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out"
                                         >
-                                            --&gt;
+                                            <span aria-hidden="true" className="text-lg">&rarr;</span>
                                         </span>
                                     </Button>
                                 </div>
@@ -259,7 +259,7 @@ export default function Home() {
                         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
                         <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
                         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-                            <Image className="mx-auto h-12" src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg" alt=""
+                            <Image className="mx-auto h-12" src="https://tailwindui.com/plus/img/logos/workcation-logo-indigo-600.svg" alt=""
                                 width={192} height={48}
                             />
                             <figure className="mt-10">
@@ -286,11 +286,11 @@ export default function Home() {
                             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                                 <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">Trusted by the worlds leading organizations</h2>
                                 <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" />
-                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158" height="48" />
-                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" width="158" height="48" />
-                                    <Image className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" width="158" height="48" />
-                                    <Image className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158" height="48" />
+                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/plus/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" />
+                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/plus/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158" height="48" />
+                                    <Image className="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/plus/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" width="158" height="48" />
+                                    <Image className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="https://tailwindui.com/plus/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" width="158" height="48" />
+                                    <Image className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://tailwindui.com/plus/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158" height="48" />
                                 </div>
                             </div>
                         </div>
@@ -378,7 +378,7 @@ export default function Home() {
                                             </span>
                                             Customizable AI based quizzes (unlimited/month per faculty)
                                         </p>
-                                        <p className="flex items-center text-gray-600 mb-6">
+                                        <p className="flex items-center text-gray-600 mb-2">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                                                 <Check className="h-3 w-3" />
                                             </span>
