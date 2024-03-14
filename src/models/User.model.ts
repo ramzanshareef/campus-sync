@@ -1,31 +1,26 @@
 import mongoose, { models, Document, Schema } from "mongoose";
 
 export interface UserType extends Document {
-    clerkID: string;
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string;
+    password: string;
     photo: string;
     role: string;
+    isVerified?: boolean;
 }
 
 const UserSchema: Schema<UserType> = new mongoose.Schema({
-    clerkID: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    firstName: {
-        type: String,
-        required: true,
-    },
-    lastName: {
+    name: {
         type: String,
         required: true,
     },
     email: {
         type: String,
         unique: true,
+        required: true,
+    },
+    password: {
+        type: String,
         required: true,
     },
     photo: {
@@ -37,6 +32,9 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
         required: true,
         enum: ["admin", "user"],
         default: "user",
+    },
+    isVerified: {
+        type: Boolean,
     },
 });
 

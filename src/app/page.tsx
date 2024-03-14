@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "../components/root/Footer";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@/components/ui/auth";
+import { UserButton } from "@/components/ui/user";
 import { PackageButton } from "@/components/dashboard/PaymentButtons";
 
 const navigation = [
@@ -13,7 +14,7 @@ const navigation = [
     { name: "About", href: "/about" }
 ];
 
-export default function Home() {
+export default async function Home() {
     return (
         <>
             <div className="bg-white relative overflow-hidden">
@@ -54,7 +55,8 @@ export default function Home() {
                                 ))}
                             </div>
                             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                                <SignedIn>
+                                <UserButton />
+                                {/* <SignedIn>
                                     <Button variant="link" className="px-8 h-10 flex gap-4">
                                         <UserButton />
                                         <Link href="/dashboard">
@@ -63,10 +65,10 @@ export default function Home() {
                                     </Button>
                                 </SignedIn>
                                 <SignedOut>
-                                    <Link href="/sign-in" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
-                                        Sign In
+                                    <Link href="/login" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
+                                        Log In
                                     </Link>
-                                </SignedOut>
+                                </SignedOut> */}
                             </div>
                         </nav>
                         <SheetContent>
@@ -95,7 +97,8 @@ export default function Home() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                <SignedIn>
+                                <UserButton />
+                                {/* <SignedIn>
                                     <Button variant="link" className="h-10 flex gap-4">
                                         <UserButton />
                                         <Link href="/dashboard">
@@ -104,10 +107,10 @@ export default function Home() {
                                     </Button>
                                 </SignedIn>
                                 <SignedOut>
-                                    <Link href="/sign-in" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
-                                        Sign In
+                                    <Link href="/login" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
+                                        Log In
                                     </Link>
-                                </SignedOut>
+                                </SignedOut> */}
                             </SheetDescription>
                         </SheetContent>
                     </header>
@@ -144,7 +147,7 @@ export default function Home() {
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                                    <Link className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2" href="/sign-in">
+                                    <Link className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2" href="/login">
                                         Get Started
                                     </Link>
                                     <Button variant="outline" className="px-8 h-10 flex gap-2 group">

@@ -185,7 +185,7 @@ export default function Page() {
         const signUpWith = (strategy: OAuthStrategy) => {
             return signUp?.authenticateWithRedirect({
                 strategy,
-                redirectUrl: "/sign-up/sso-callback",
+                redirectUrl: "/signup/sso-callback",
                 redirectUrlComplete: query.get("redirect_url") || "/",
             });
         };
@@ -306,7 +306,7 @@ export default function Page() {
                             </div>
                             <div className="text-center text-sm">
                                 Already have an account?{" "}
-                                <Link href="/sign-in" className="underline underline-offset-4">Sign In</Link>
+                                <Link href="/login" className="underline underline-offset-4">Log In</Link>
                             </div>
                         </div>
                     }

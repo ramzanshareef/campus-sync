@@ -3,7 +3,6 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
-import { ClerkProvider } from "@clerk/nextjs";
 
 const roboto = Roboto({
     subsets: ["vietnamese"],
@@ -32,27 +31,9 @@ export default function RootLayout({
                     color="#000fff"
                     showSpinner={false}
                 />
-                <ClerkProvider
-                    appearance={{
-                        layout: {
-                            animations: true,
-                            showOptionalFields: true,
-                            logoPlacement: "inside",
-                            socialButtonsPlacement: "bottom",
-                            socialButtonsVariant: "blockButton",
-                            logoLinkUrl: "/",
-                            termsPageUrl: "/terms",
-                            privacyPageUrl: "/privacy",
-                        },
-                        variables: {
-                            colorPrimary: "#6366f1"
-                        },
-                    }}
-                >
-                    <Toaster
-                    />
-                    {children}
-                </ClerkProvider>
+                <Toaster
+                />
+                {children}
             </body>
         </html>
     );

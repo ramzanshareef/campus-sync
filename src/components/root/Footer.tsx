@@ -2,7 +2,7 @@
 
 import { HoverCard, HoverCardContent, HoverCardTrigger, } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BriefcaseBusinessIcon, CalendarDays, FacebookIcon, GithubIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
+import { BriefcaseBusinessIcon, FacebookIcon, GithubIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,8 +22,8 @@ export default function Footer() {
                                 @ramzanshareef
                             </p>
                         </HoverCardTrigger>
-                        <HoverCardContent>
-                            <div className="flex justify-between space-x-4">
+                        <HoverCardContent className="p-3 w-fit rounded-lg">
+                            <div className="flex flex-col justify-center items-center">
                                 <Avatar>
                                     <AvatarImage src="/images/ramzanshareef.jpg" />
                                     <AvatarFallback>RS</AvatarFallback>
@@ -31,7 +31,6 @@ export default function Footer() {
                                 <div className="space-y-1">
                                     <h4 className="text-sm font-semibold">@ramzanshareef</h4>
                                     <p className="text-sm">
-                                        I&apos;m an upcoming Engineer and a Full-Stack Developer. <br />
                                         <div className="flex items-center justify-between">
                                             <BriefcaseBusinessIcon className="h-5 w-5 inline-block text-gray-500 cursor-pointer hover:text-gray-600 transition-colors duration-300 ease-in-out"
                                                 onClick={() => router.push("https://ramzanshareef.me")}
@@ -44,12 +43,6 @@ export default function Footer() {
                                             />
                                         </div>
                                     </p>
-                                    <div className="flex items-center pt-2">
-                                        <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
-                                        <span className="text-xs text-muted-foreground">
-                                            Developed July 2024
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </HoverCardContent>

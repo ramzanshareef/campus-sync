@@ -1,11 +1,10 @@
 import mongoose, { models, Document, Schema } from "mongoose";
 
 export interface StudentType extends Document {
-    clerkID: string;
     college: mongoose.Schema.Types.ObjectId;
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string;
+    password: string;
     photo: string;
     department: string;
     semester: Number,
@@ -13,21 +12,16 @@ export interface StudentType extends Document {
 }
 
 const StudentSchema: Schema<StudentType> = new mongoose.Schema({
-    clerkID: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     college: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "College",
     },
-    firstName: {
+    name: {
         type: String,
         required: true,
     },
-    lastName: {
+    password: {
         type: String,
         required: true,
     },
