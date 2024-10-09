@@ -29,7 +29,6 @@ const FacultySchema: Schema<FacultyType> = new mongoose.Schema({
     },
     photo: {
         type: String,
-        required: true,
     },
 });
 

@@ -25,7 +25,6 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     },
     photo: {
         type: String,
-        required: true,
     },
     role: {
         type: String,

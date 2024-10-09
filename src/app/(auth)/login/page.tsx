@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 "use client";
 
 import Image from "next/image";
@@ -14,6 +13,7 @@ import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/lib/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { userLogin } from "@/actions/user/auth";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -31,31 +31,39 @@ export default function LoginPage() {
     async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
         try {
             setIsLoading(true);
-            // const signInAttempt = await signIn.create({
-            //     identifier: values.email,
-            //     password: values.password
-            // });
-            // if (signInAttempt.status === "complete") {
-            //     await setActive({ session: signInAttempt.createdSessionId });
-            //     toast({
-            //         title: "Signin Successful 🎉",
-            //         variant: "success",
-            //     });
-            //     router.push(query.get("redirect_url") || "/");
-            // }
-            // else {
-            //     let error = JSON.parse(JSON.stringify(signInAttempt, null, 2));
-            //     toast({
-            //         title: "Signin failed! 😞",
-            //         variant: "destructive",
-            //         description: error.errors.map((e: any) => e.longMessage).join(", "),
-            //     });
-            // }
+            let allowedEmailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "tomorjerry.com"];
+            let emailDomain = (values.email as string)?.split("@")[1];
+            if (!allowedEmailDomains.includes(emailDomain)) {
+                toast({
+                    title: "Only Gmail, Yahoo, Hotmail and Outlook domains are allowed",
+                    variant: "destructive",
+                });
+                setIsLoading(false);
+                return;
+            }
+            let res = await userLogin({
+                email: values.email,
+                password: values.password,
+            });
+            if (res.status === 200) {
+                toast({
+                    title: "Login Successful 🎉",
+                    variant: "success",
+                    description: "You are now logged in",
+                });
+                router.push("/dashboard");
+            } else {
+                toast({
+                    title: "Login failed! 😞",
+                    variant: "destructive",
+                    description: JSON.parse(JSON.stringify(res.message)),
+                });
+            }
         }
         catch (err: any) {
             let error = JSON.parse(JSON.stringify(err, null, 2));
             toast({
-                title: "Signin failed! 😞",
+                title: "Login failed! 😞",
                 variant: "destructive",
                 description: error.errors.map((e: any) => e.longMessage).join(", "),
             });

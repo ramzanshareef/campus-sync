@@ -32,7 +32,6 @@ const StudentSchema: Schema<StudentType> = new mongoose.Schema({
     },
     photo: {
         type: String,
-        required: true,
     },
     department: {
         type: String,

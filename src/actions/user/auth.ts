@@ -9,28 +9,25 @@ import mongoose from "mongoose";
 import { sendOTPForSignUp } from "../emails/auth";
 import SignUpVerification from "@/models/SignupVerification.model";
 
-export async function userSignup(currentState: any, formData: FormData) {
-    let name = formData.get("name");
-    let email = formData.get("email");
-    let password = formData.get("password") as string;
+export async function userSignup({ name, email, password }: { name: string, email: string, password: string }) {
     const result = SignUpFormSchema.safeParse({
-        name: formData.get("name"),
-        email: formData.get("email"),
-        password: formData.get("password"),
+        name,
+        email,
+        password,
     });
     if (!result.success) {
         let formatted = result.error.format();
         return { status: 400, message: "Validation Error, ", errors: formatted };
     }
-    let allowedEmailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
+    let allowedEmailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "tomorjerry.com"];
     let emailDomain = (email as string)?.split("@")[1];
     if (!allowedEmailDomains.includes(emailDomain)) {
         return { status: 400, message: "Only Gmail, Yahoo, Hotmail and Outlook domains are allowed" };
     }
     else {
+        await connectDB();
         const mongoSession = await mongoose.startSession();
         try {
-            await connectDB();
             mongoSession.startTransaction();
             let user = await User.findOne({ email: email });
             if (user) {
@@ -59,20 +56,19 @@ export async function userSignup(currentState: any, formData: FormData) {
         }
         catch (err) {
             await mongoSession.abortTransaction();
+            console.log(err);
             return { status: 500, message: "Internal server error" };
         }
         finally {
-            mongoSession.endSession();
+            await mongoSession.endSession();
         }
     }
 }
 
-export async function userLogin(currentState: any, formData: FormData) {
-    let email = formData.get("email");
-    let password = formData.get("password") as string;
+export async function userLogin({ email, password }: { email: string, password: string }) {
     const result = SignInFormSchema.safeParse({
-        email: formData.get("email"),
-        password: formData.get("password"),
+        email,
+        password
     });
     if (!result.success) {
         let formatted = result.error.format();
@@ -116,22 +112,21 @@ export async function userLogin(currentState: any, formData: FormData) {
     }
 }
 
-export async function VerifyOTP(currentState: any, formData: FormData) {
-    let email = formData.get("email");
-    let otp = formData.get("otp");
+export async function verifyOTP({ email, otp }: { email: string, otp: string }) {
+    await connectDB();
     let mongoSession = await mongoose.startSession();
     try {
-        await connectDB();
+        mongoSession.startTransaction();
         let doc = await SignUpVerification.findOne({ email: email, otp: otp });
         if (doc) {
             await User.updateOne({ email: email }, { $unset: { isVerified: 1 } });
-            await SignUpVerification.deleteOne({ email: email, otp: otp });
+            await SignUpVerification.deleteOne({ email: email, otp: parseInt(otp) });
             await mongoSession.commitTransaction();
             return { status: 200, message: "Email verified successfully" };
         }
         else {
             await mongoSession.commitTransaction();
-            return { status: 400, message: "Invalid OTP" };
+            return { status: 400, message: "Invalid Credentials" };
         }
     }
     catch (err) {

@@ -5,7 +5,7 @@ export const SignUpFormSchema = z.object({
         .string({
             message: "Name is required and must be a String",
         }).min(3, {
-            message: "First Name must be at least 3 characters long",
+            message: "Name must be at least 3 characters long",
         }),
     email: z
         .string({
@@ -24,10 +24,17 @@ export const SignUpFormSchema = z.object({
 });
 
 export const SignUpFormOTPVerificationSchema = z.object({
+    email: z
+        .string({
+            message: "Email is required and must be a String",
+        }).email({
+            message: "Email must be a valid email address",
+        }),
     otp: z
         .string({
             message: "OTP is required and must be a String",
-        }).min(6, {
+        })
+        .length(6, {
             message: "OTP must be a 6 digit number",
         }),
 });
