@@ -1,17 +1,17 @@
 import { checkAuth } from "@/lib/session";
 
-interface SignedInProps {
+interface SignedInProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
 }
 
-const SignedIn = async ({ children }: SignedInProps) => {
+const SignedIn = async ({ children, ...props }: SignedInProps) => {
     const isAuth = await checkAuth();
-    return isAuth ? <>{children}</> : null;
+    return isAuth ? <div {...props}> {children} </div> : null;
 };
 
-const SignedOut = async ({ children }: SignedInProps) => {
+const SignedOut = async ({ children, ...props }: SignedInProps) => {
     const isAuth = await checkAuth();
-    return !isAuth ? <>{children}</> : null;
+    return !isAuth ? <div {...props}> {children} </div> : null;
 };
 
 export { SignedIn, SignedOut };

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,6 +19,7 @@ export default function LoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
+    const params = useSearchParams();
 
     const signInForm = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
@@ -51,7 +52,7 @@ export default function LoginPage() {
                     variant: "success",
                     description: "You are now logged in",
                 });
-                router.push("/dashboard");
+                router.push(params.get("next") ?? "/dashboard");
             } else {
                 toast({
                     title: "Login failed! 😞",

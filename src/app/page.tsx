@@ -55,9 +55,9 @@ export default async function Home() {
                                 ))}
                             </div>
                             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                                <SignedIn>
+                                <SignedIn className="flex max-lg:flex-row items-center">
                                     <UserButton />
-                                    <Button variant="link" className="px-8 h-10 flex gap-4">
+                                    <Button variant="link">
                                         <Link href="/dashboard">
                                             Dashboard
                                         </Link>
@@ -96,9 +96,9 @@ export default async function Home() {
                                         {item.name}
                                     </Link>
                                 ))}
-                                <SignedIn>
+                                <SignedIn className="flex max-lg:flex-row items-center">
                                     <UserButton />
-                                    <Button variant="link" className="h-10 flex gap-4">
+                                    <Button variant="link">
                                         <Link href="/dashboard">
                                             Dashboard
                                         </Link>
