@@ -80,7 +80,6 @@ export async function userSignup({ name, email, password }: { name: string, emai
         }
         catch (err) {
             await mongoSession.abortTransaction();
-            console.log(err);
             return { status: 500, message: "Internal server error" };
         }
         finally {

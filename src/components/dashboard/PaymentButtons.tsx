@@ -2,6 +2,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { packages } from "@/lib/packages";
 import { useRouter } from "next/navigation";
 
 export const PackageButton = ({ packageType }: { packageType: string }) => {
@@ -9,13 +10,13 @@ export const PackageButton = ({ packageType }: { packageType: string }) => {
     let href: string;
     switch (packageType) {
         case "LITE":
-            href = "https://buy.stripe.com/test_00g9AAdMC9Gl5iwcMM";
+            href = packages[0].payment_link;
             break;
         case "STANDARD":
-            href = "https://buy.stripe.com/test_7sI288fUK5q55iw5kl";
+            href = packages[1].payment_link;
             break;
         case "PREMIUM":
-            href = "https://buy.stripe.com/test_4gweUUaAq19P3ao9AC";
+            href = packages[2].payment_link;
             break;
         default:
             break;

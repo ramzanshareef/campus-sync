@@ -1,6 +1,6 @@
 "use server";
 
-import { EmailTemplateForSignUpOTP } from "@/components/email-templates";
+import { EmailTemplateForSignUpOTP, MadeUserAdminPaymentSuccessEmail, MadeUserAdminPaymentSuccessEmailProps } from "@/components/email-templates";
 import { Resend } from "resend";
 import { RESEND_API_KEY } from "@/lib/constants";
 import { connectDB } from "@/lib/database/connect";
@@ -31,6 +31,31 @@ export async function sendOTPForSignUp({ email, name }: { email: string, name: s
         });
         return { status: 200, message: "OTP sent successfully" };
     } catch (error) {
+        return { status: 500, message: "Internal server error" };
+    }
+}
+
+export async function sendMadeAdminEmail({ email, name, amount, packageType, paymentId, isNewUser }: MadeUserAdminPaymentSuccessEmailProps) {
+    try {
+        const { error } = await resend.emails.send({
+            from: "Notifications | Campus Sync <campus-sync@ramzanshareef.me>",
+            to: email as string,
+            subject: "Hurrah! You are now an admin",
+            react: MadeUserAdminPaymentSuccessEmail({
+                email: email as string,
+                name: name as string,
+                amount: amount as number,
+                packageType: packageType as string,
+                paymentId: paymentId as string,
+                isNewUser: isNewUser
+            })
+        });
+        if (error) {
+            return { status: 500, message: "Email couldnot be sent" };
+        }
+        return { status: 200, message: "Email sent successfully" };
+    }
+    catch (error) {
         return { status: 500, message: "Internal server error" };
     }
 }

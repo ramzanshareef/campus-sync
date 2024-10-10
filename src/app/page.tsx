@@ -7,6 +7,7 @@ import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from 
 import { SignedIn, SignedOut } from "@/components/ui/auth";
 import { UserButton } from "@/components/ui/user";
 import { PackageButton } from "@/components/dashboard/PaymentButtons";
+import { packages } from "@/lib/packages";
 
 const navigation = [
     { name: "Features", href: "#features" },
@@ -307,10 +308,9 @@ export default async function Home() {
                             <div className="flex flex-wrap justify-around sm:px-10">
                                 <div className="p-4 xl:w-1/4 md:w-1/2 w-full">
                                     <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden hover:border-indigo-500">
-                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">LITE</h2>
+                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">{packages[0].package}</h2>
                                         <h1 className="text-5xl text-gray-900 pb-4 mb-4 border-b border-gray-200 leading-none">
-                                            ₹19,999
-                                            <span className="text-lg ml-1 font-normal text-gray-500">/mo</span>
+                                            ₹{packages[0].price.toLocaleString("en-IN")}
                                         </h1>
                                         <p className="flex items-center text-gray-600 mb-2">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
@@ -322,7 +322,7 @@ export default async function Home() {
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                                                 <Check className="h-3 w-3" />
                                             </span>
-                                            Customizable AI based quizzes (upto 5/month per faculty)
+                                            Customizable AI based quizzes (upto 5 per faculty)
                                         </p>
                                         <PackageButton packageType="LITE" />
                                         <p className="text-xs text-gray-500 mt-3">
@@ -333,10 +333,9 @@ export default async function Home() {
                                 <div className="p-4 xl:w-1/4 md:w-1/2 w-full">
                                     <div className="h-full p-6 rounded-lg border-2 border-indigo-500 flex flex-col relative overflow-hidden">
                                         <span className="bg-indigo-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
-                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">STANDARD</h2>
+                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">{packages[1].package}</h2>
                                         <h1 className="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
-                                            <span>₹37,999</span>
-                                            <span className="text-lg ml-1 font-normal text-gray-500">/mo</span>
+                                            ₹{packages[1].price.toLocaleString("en-IN")}
                                         </h1>
                                         <p className="flex items-center text-gray-600 mb-2">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
@@ -348,7 +347,7 @@ export default async function Home() {
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                                                 <Check className="h-3 w-3" />
                                             </span>
-                                            Customizable AI based quizzes (upto 10/month per faculty)
+                                            Customizable AI based quizzes (upto 10 per faculty)
                                         </p>
                                         <p className="flex items-center text-gray-600 mb-6">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
@@ -362,10 +361,9 @@ export default async function Home() {
                                 </div>
                                 <div className="p-4 xl:w-1/4 md:w-1/2 w-full">
                                     <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden hover:border-indigo-500">
-                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">PREMIUM</h2>
+                                        <h2 className="text-sm tracking-widest title-font mb-1 font-medium">{packages[2].package}</h2>
                                         <h1 className="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
-                                            <span>₹49,999</span>
-                                            <span className="text-lg ml-1 font-normal text-gray-500">/mo</span>
+                                            <span>₹{packages[2].price.toLocaleString("en-IN")}</span>
                                         </h1>
                                         <p className="flex items-center text-gray-600 mb-2">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
@@ -377,7 +375,7 @@ export default async function Home() {
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                                                 <Check className="h-3 w-3" />
                                             </span>
-                                            Customizable AI based quizzes (unlimited/month per faculty)
+                                            Customizable AI based quizzes (unlimited per faculty)
                                         </p>
                                         <p className="flex items-center text-gray-600 mb-2">
                                             <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">

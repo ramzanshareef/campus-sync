@@ -1,43 +1,35 @@
-import { packages } from "@/lib/packages";
-import mongoose, { Schema, Document, models } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+
 
 export interface PaymentType extends Document {
-    paidBy: mongoose.Schema.Types.ObjectId;
-    status: string;
-    payment_info: object;
-    package: string;
-    pricePerMonth: number;
-    amountPaid: number;
+    payeeID: mongoose.Schema.Types.ObjectId;
+    custID: String,
+    amount: Number,
+    status: String,
 }
 
 const PaymentSchema: Schema<PaymentType> = new mongoose.Schema({
-    paidBy: {
+    payeeID: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
     },
-    status: {
+    custID: {
         type: String,
         required: true,
-        enum: ["invalid", "initiated", "pending", "completed", "failed"],
-        default: "invalid"
     },
-    package: {
+    amount: {
+        type: Number,
+        required: true,
+    },
+    status: {
         type: String,
-        enum: packages.map((p) => p.package),
-    },
-    pricePerMonth: {
-        type: Number,
-        enum: packages.map((p) => p.pricePerMonth),
-    },
-    amountPaid: {
-        type: Number,
-    },
-    payment_info: {
-        type: Object,
+        enum: ["invalid", "initiated", "pending", "paid", "failed"],
+        default: "invalid",
+        required: true
     },
 });
 
-const Payment = models.Payment as mongoose.Model<PaymentType> || mongoose.model<PaymentType>("Payment", PaymentSchema);
+const Payment = mongoose.models.Payment as mongoose.Model<PaymentType> || mongoose.model<PaymentType>("Payment", PaymentSchema);
 
 export default Payment;
