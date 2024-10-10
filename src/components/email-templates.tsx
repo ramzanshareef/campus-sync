@@ -60,6 +60,13 @@ const EmailTemplateForSignUpOTP = ({ email, name, otp }: EmailTemplateProps) => 
         textDecoration: "none",
         color: "#00bc69"
     };
+
+    const smallStyle = {
+        fontSize: "0.9em",
+        color: "#666666",
+        fontWeight: "400",
+        lineHeight: "1.6"
+    };
     return <>
         <div style={containerStyle}>
             <div className="header" style={headerStyle}>
@@ -75,6 +82,16 @@ const EmailTemplateForSignUpOTP = ({ email, name, otp }: EmailTemplateProps) => 
                 <b>Your One Time Code is :</b>
             </p>
             <h2 className="otp" style={otpStyle}>{otp.toString()}</h2>
+            <br />
+            <span style={smallStyle}>
+                This otp will expire in 2 minutes. Please enter this otp in the
+                verification page to complete the login process.
+            </span>
+            &nbsp;or click the link below and enter the otp in the verification page.
+            <br />
+            <a href={process.env.NEXT_PUBLIC_APP_URL + "/signup/verify?email=" + email} style={emailLinkStyle}>
+                Verify Your Identity
+            </a>
             <p style={{ fontSize: "0.9em" }}>
                 <br />
                 <br />
@@ -97,7 +114,7 @@ const EmailTemplateForSignUpOTP = ({ email, name, otp }: EmailTemplateProps) => 
                 <p>This email cannot receive replies.</p>
                 <p>
                     For more information about Campus Sync and your account, visit &nbsp;
-                    <a href="https://campus-sync.vercel.app">Campus Sync</a>
+                    <a href={process.env.NEXT_PUBLIC_APP_URL}>Campus Sync</a>
                 </p>
             </div>
 

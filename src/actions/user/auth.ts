@@ -31,7 +31,31 @@ export async function userSignup({ name, email, password }: { name: string, emai
             mongoSession.startTransaction();
             let user = await User.findOne({ email: email });
             if (user) {
-                return { status: 400, message: "User already exists" };
+                let otpDoc = await SignUpVerification.findOne({ email });
+                if (otpDoc) {
+                    let currentTime = new Date().getTime();
+                    let otpTime = otpDoc.createdAt.getTime();
+                    let diff = Math.abs(currentTime - otpTime) / 60000;
+                    if (diff < 2) {
+                        await mongoSession.commitTransaction();
+                        return { status: 205, message: "OTP already sent, please wait for 2 minutes" };
+                    }
+                    else {
+                        await SignUpVerification.deleteOne({ email });
+                    }
+                }
+                let otpSend = await sendOTPForSignUp({
+                    email: email as string,
+                    name: name as string
+                });
+                if (otpSend.status === 200) {
+                    await mongoSession.commitTransaction();
+                    return { status: 200, message: "OTP sent to email" };
+                }
+                else {
+                    await mongoSession.commitTransaction();
+                    return { status: 400, message: "OTP couldnot be sent" };
+                }
             }
             else {
                 let newUser = new User({
@@ -81,7 +105,7 @@ export async function userLogin({ email, password }: { email: string, password: 
             if (user && user.isVerified === false) {
                 return { status: 400, message: "Email not verified" };
             }
-            if (user) {
+            if (user && user.password) {
                 let isMatch = bcryptjs.compareSync(password, user.password);
                 if (isMatch) {
                     const session = await getSession();
@@ -90,13 +114,11 @@ export async function userLogin({ email, password }: { email: string, password: 
                         _id: user._id as string,
                         name: user.name,
                         email: user.email,
+                        photo: user.photo,
                         role: user.role
                     };
                     await session.save();
-                    return {
-                        status: 200,
-                        message: "Login Successful"
-                    };
+                    return { status: 200, message: "Login Successful" };
                 }
                 else {
                     return { status: 400, message: "Invalid Credentials" };

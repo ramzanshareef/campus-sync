@@ -3,10 +3,12 @@ import mongoose, { models, Document, Schema } from "mongoose";
 export interface UserType extends Document {
     name: string;
     email: string;
-    password: string;
+    password?: string;
     photo: string;
     role: string;
     isVerified?: boolean;
+    googleID?: string;
+    provider?: string;
 }
 
 const UserSchema: Schema<UserType> = new mongoose.Schema({
@@ -21,10 +23,11 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
     },
     photo: {
         type: String,
+        required: true,
+        default: process.env.NEXT_PUBLIC_APP_URL + "/images/default-profile-picture.jpg",
     },
     role: {
         type: String,
@@ -34,6 +37,14 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     },
     isVerified: {
         type: Boolean,
+    },
+    googleID: {
+        type: String,
+        unique: true,
+    },
+    provider: {
+        type: String,
+        enum: ["google"],
     },
 });
 

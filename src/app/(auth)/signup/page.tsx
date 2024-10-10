@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useToast } from "@/lib/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSignup } from "@/actions/user/auth";
+import GoogleLoginBtn from "@/components/oauth";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -54,7 +55,15 @@ export default function SignUpPage() {
                     description: "OTP sent to email",
                 });
                 router.push("/signup/verify?email=" + values.email);
-            } else {
+            } else if (res.status === 205) {
+                toast({
+                    title: "OTP already sent! 😊",
+                    variant: "default",
+                    description: "Please wait for 2 minutes or verify your email",
+                });
+                router.push("/signup/verify?email=" + values.email);
+            }
+            else {
                 toast({
                     title: "SignUp failed! 😞",
                     variant: "destructive",
@@ -154,9 +163,7 @@ export default function SignUpPage() {
                             </Button>
                         </form>
                     </Form>
-                    {/* <Button variant="destructive" className="w-full" onClick={() => signUpWith("oauth_google")}>
-                        Sign up with Google
-                    </Button> */}
+                    <GoogleLoginBtn />
                 </div>
                 <div className="text-center text-sm">
                     Already have an account?{" "}

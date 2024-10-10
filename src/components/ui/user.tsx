@@ -11,7 +11,7 @@ const UserButton = async () => {
         <DropdownMenu>
             <DropdownMenuTrigger title={user?.name} className="p-0 m-0">
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={user?.photo} />
                     <AvatarFallback>{user?.name.split(" ").map(word => word[0].toUpperCase()).join("")}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
@@ -21,7 +21,7 @@ const UserButton = async () => {
             >
                 <div className="flex items-center space-x-4 text-base">
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarImage src={user?.photo} />
                         <AvatarFallback>{user?.name.split(" ").map(word => word[0].toUpperCase()).join("")}</AvatarFallback>
                     </Avatar>
                     <div>

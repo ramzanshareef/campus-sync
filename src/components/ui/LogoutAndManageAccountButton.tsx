@@ -3,13 +3,19 @@
 import { LogOutIcon, Settings2Icon } from "lucide-react";
 import { Button } from "./button";
 import { userLogout } from "@/actions/user/auth";
+import { useRouter } from "next/navigation";
 
 const LogoutButton = () => {
+    const router = useRouter();
     return <>
         <Button
             variant="outline"
             onClick={async () => {
-                await userLogout();
+                await userLogout().then((res) => {
+                    if (res.status === 200) {
+                        router.push("/");
+                    }
+                });
             }}
             className="mt-2 w-1/2 h-6 text-sm p-4"
         >

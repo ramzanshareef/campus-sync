@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useToast } from "@/lib/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userLogin } from "@/actions/user/auth";
+import GoogleLoginBtn from "@/components/oauth";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -134,7 +135,7 @@ export default function LoginPage() {
                         </Button>
                     </form>
                 </Form>
-                {/* <OauthSignIn /> */}
+                <GoogleLoginBtn />
             </div>
             <div className="text-center text-sm">
                 Donot have an acccount? &nbsp;
