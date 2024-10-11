@@ -72,7 +72,7 @@ export async function makeUserSub(userID: string) {
     }
 }
 
-export async function makeUserSubAdmin(email: string) {
+export async function makeUserSubAdminAndLogin(email: string) {
     await connectDB();
     const mongooseSession = await mongoose.startSession();
     try {

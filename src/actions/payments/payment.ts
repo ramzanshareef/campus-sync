@@ -74,7 +74,7 @@ export async function verifyPaymentMakeSubAdmin(sessionID: string) {
         if (!user) {
             return { status: 404, message: "User not found" };
         }
-        await user.updateOne({ role: "admin" });
+        await user.updateOne({ role: "sub" });
         mongooseSession.commitTransaction();
         return { status: 200, message: "User role updated successfully", email: user.email };
     } catch (err: any) {

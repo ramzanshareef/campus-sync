@@ -1,6 +1,6 @@
 "use client";
 
-import { makeUserSubAdmin } from "@/actions/payments/admin";
+import { makeUserSubAdminAndLogin } from "@/actions/payments/admin";
 import { Button } from "@/components/ui/button";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export const ContinueButton = ({ email }: { email: string }) => {
             <Button variant="primary"
                 onClick={async () => {
                     setIsLoading(true);
-                    let res = await makeUserSubAdmin(email);
+                    let res = await makeUserSubAdminAndLogin(email);
                     if (res.status === 200) {
                         router.push("/dashboard");
                     }
