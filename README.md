@@ -40,18 +40,16 @@ npm install
 
 1. **Set up environment variables**: Ensure you have configured the following environment variables for proper functionality:
 
-   - `DATABASE_URL`
-   - `AUTH_TOKEN_SECRET`
-   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-   - `CLERK_SECRET_KEY`
-   - `NEXT_PUBLIC_CLERK_SIGN_IN_URL`
-   - `NEXT_PUBLIC_CLERK_SIGN_UP_URL`
-   - `WEBHOOK_SECRET`
    - `DB_URL`
+   - `SESSION_SECRET`
    - `STRIPE_SECRET_KEY`
    - `STRIPE_WEBHOOK_SECRET`
-   - `NEXT_PUBLIC_CLOUDINARY_API_KEY`
-   - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+   - `NEXT_PUBLIC_APP_URL`
+   - `NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - `RESEND_API_KEY`
+   - `CLOUDINARY_CLOUD_NAME`
+   - `CLOUDINARY_API_KEY`
    - `CLOUDINARY_API_SECRET`
 
 2. **Configure API keys and endpoints**: If your application integrates with external services (e.g., email services, analytics platforms), ensure you have configured the necessary API keys and endpoints in your environment variables.

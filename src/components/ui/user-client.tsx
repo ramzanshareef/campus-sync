@@ -1,15 +1,14 @@
-import { checkAuth } from "@/lib/session";
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogoutButton, ManageAccount } from "./LogoutAndManageAccountButton";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { getUser } from "@/lib/user/user";
+import { IUser } from "@/types/user";
 
-const UserButton = async () => {
-    const isAuth = await checkAuth();
-    const { user } = await getUser();
+const UserButtonClient = ({ isAuth, user }: { isAuth: boolean, user: IUser }) => {
     return isAuth ? <>
         <DropdownMenu>
-            <DropdownMenuTrigger title={user?.name} className="p-0 m-0 w-fit focus-visible:hidden">
+            <DropdownMenuTrigger title={user?.name} className="p-0 m-0 focus-visible:hidden">
                 <Avatar>
                     <AvatarImage src={user?.photo} />
                     <AvatarFallback>{user?.name.split(" ").map(word => word[0].toUpperCase()).join("")}</AvatarFallback>
@@ -38,4 +37,4 @@ const UserButton = async () => {
     </> : null;
 };
 
-export { UserButton };
+export { UserButtonClient };

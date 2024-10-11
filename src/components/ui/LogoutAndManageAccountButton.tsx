@@ -24,7 +24,7 @@ const LogoutButton = () => {
             }}
             className="mt-2 w-1/2 h-6 text-sm p-4"
         >
-            {isLoggingOut ? <Loader2Icon className="w-4 h-4 mr-2" /> : <>
+            {isLoggingOut ? <Loader2Icon className="w-4 h-4 mr-2 animate-spin" /> : <>
                 <LogOutIcon className="w-4 h-4 mr-2" />
                 Log out
             </>

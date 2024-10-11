@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { StripeWebHookSecret } from "@/lib/constants";
-import { createUserIfNotExists, makeUserAdmin } from "@/actions/payments/admin";
+import { createUserIfNotExists, makeUserSub } from "@/actions/payments/admin";
 import { createInvoice, createPayment } from "@/actions/payments/payment";
 
 export async function POST(req: Request) {
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
             };
             await createPayment(data.user?._id, customer.id as string, session.amount_total as number);
             await createInvoice(details);
-            await makeUserAdmin(data.user?._id);
+            await makeUserSub(data.user?._id);
         }
         return Response.json({});
     }

@@ -9,6 +9,7 @@ export interface UserType extends Document {
     isVerified?: boolean;
     googleID?: string;
     provider?: string;
+    isNewUser?: boolean;
 }
 
 const UserSchema: Schema<UserType> = new mongoose.Schema({
@@ -32,7 +33,7 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ["admin", "user"],
+        enum: ["user", "sub", "admin"],
         default: "user",
     },
     isVerified: {
@@ -45,6 +46,9 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     provider: {
         type: String,
         enum: ["google"],
+    },
+    isNewUser: {
+        type: Boolean,
     },
 });
 

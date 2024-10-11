@@ -5,18 +5,18 @@ import { Button } from "@/components/ui/button";
 import { packages } from "@/lib/packages";
 import { useRouter } from "next/navigation";
 
-export const PackageButton = ({ packageType }: { packageType: string }) => {
+export const PackageButton = ({ packageType, email }: { packageType: string, email?: string }) => {
     const router = useRouter();
     let href: string;
     switch (packageType) {
         case "LITE":
-            href = packages[0].payment_link;
+            href = email !== undefined && email !== "" ? packages[0].payment_link + `?prefilled_email=${email}` : packages[0].payment_link;
             break;
         case "STANDARD":
-            href = packages[1].payment_link;
+            href = email !== undefined && email !== "" ? packages[1].payment_link + `?prefilled_email=${email}` : packages[1].payment_link;
             break;
         case "PREMIUM":
-            href = packages[2].payment_link;
+            href = email !== undefined && email !== "" ? packages[2].payment_link + `?prefilled_email=${email}` : packages[2].payment_link;
             break;
         default:
             break;

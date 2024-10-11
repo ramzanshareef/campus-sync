@@ -24,3 +24,35 @@ export const checkAuth = async () => {
     }
     return true;
 };
+
+export const checkSub = async () => {
+    const session = await getSession();
+    if (!session || !session.isAuth || session.isAuth === undefined || session.user?.role !== "sub") {
+        return false;
+    }
+    return true;
+};
+
+export const checkAdmin = async () => {
+    const session = await getSession();
+    if (!session || !session.isAuth || session.isAuth === undefined || session.user?.role !== "admin") {
+        return false;
+    }
+    return true;
+};
+
+export const checkStudent = async () => {
+    const session = await getSession();
+    if (!session || !session.isAuth || session.isAuth === undefined || session.user?.role !== "student") {
+        return false;
+    }
+    return true;
+};
+
+export const checkFaculty = async () => {
+    const session = await getSession();
+    if (!session || !session.isAuth || session.isAuth === undefined || session.user?.role !== "faculty") {
+        return false;
+    }
+    return true;
+};
