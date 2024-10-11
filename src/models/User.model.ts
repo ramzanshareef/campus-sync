@@ -41,7 +41,6 @@ const UserSchema: Schema<UserType> = new mongoose.Schema({
     },
     googleID: {
         type: String,
-        unique: true,
     },
     provider: {
         type: String,
