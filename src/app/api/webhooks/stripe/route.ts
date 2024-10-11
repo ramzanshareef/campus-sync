@@ -32,12 +32,9 @@ export async function POST(req: Request) {
                 billing_details: session.customer_details as object,
                 status: "paid",
             };
-            let res1 = await createPayment(data.user?._id, customer.id as string, session.amount_total as number);
-            let res2 = await createInvoice(details);
-            let res3 = await makeUserSub(data.user?._id);
-            console.log(res1);
-            console.log(res2);
-            console.log(res3);
+            await createPayment(data.user?._id, customer.id as string, session.amount_total as number);
+            await createInvoice(details);
+            await makeUserSub(data.user?._id);
         }
         return Response.json({});
     }
