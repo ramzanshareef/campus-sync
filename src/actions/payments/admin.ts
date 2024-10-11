@@ -72,7 +72,7 @@ export async function makeUserSub(userID: string) {
     }
 }
 
-export async function makeUserAdmin(email: string) {
+export async function makeUserSubAdmin(email: string) {
     await connectDB();
     const mongooseSession = await mongoose.startSession();
     try {
@@ -82,7 +82,7 @@ export async function makeUserAdmin(email: string) {
             mongooseSession.abortTransaction();
             return { status: 404, message: "User not found" };
         }
-        await user.updateOne({ role: "admin" });
+        await user.updateOne({ role: "sub" });
         mongooseSession.commitTransaction();
         const ironSession = await getSession();
         ironSession.isAuth = true;
