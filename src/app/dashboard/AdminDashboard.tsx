@@ -4,8 +4,10 @@ import Link from "next/link";
 import { GeneralLinks, UsersLinks } from "@/components/dashboard/admin/Links";
 import { PanelRightClose } from "lucide-react";
 import { UserButton } from "@/components/ui/user";
+import { getSession } from "@/lib/session";
 
 export default async function AdminDashboard() {
+    const { user } = await getSession();
     return (
         <>
             <Sheet>
@@ -20,7 +22,7 @@ export default async function AdminDashboard() {
                                 width={32}
                                 priority={false}
                             />
-                            <span className="text-lg font-semibold leading-6 text-white">
+                            <span className="text-lg leading-6 text-white">
                                 Campus Sync
                             </span>
                         </Link>
@@ -35,7 +37,9 @@ export default async function AdminDashboard() {
                             USERS
                         </span>
                         <UsersLinks />
-                        <UserButton />
+                        <div className="fixed bottom-4 text-black md:text-white flex items-center gap-2 text-sm">
+                            <UserButton /> {user?.name}
+                        </div>
                     </nav>
                     <SheetContent side="left">
                         <SheetTitle>

@@ -5,6 +5,8 @@ export interface CollegeType extends Document {
     name: string;
     location: string;
     logo: string;
+    maxStudents: number;
+    maxFaculty: number;
 }
 
 const CollegeSchema: Schema<CollegeType> = new mongoose.Schema({
@@ -23,6 +25,14 @@ const CollegeSchema: Schema<CollegeType> = new mongoose.Schema({
     },
     logo: {
         type: String,
+        required: true,
+    },
+    maxStudents: {
+        type: Number,
+        required: true,
+    },
+    maxFaculty: {
+        type: Number,
         required: true,
     },
 });
