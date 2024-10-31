@@ -8,5 +8,5 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
 export const metadata: Metadata = {
     title: "Dashboard",
-    description: "Dashboard for users"
+    description: "Manage your account here.",
 };

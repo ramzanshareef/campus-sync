@@ -4,20 +4,12 @@ import {
     BadgeCheck,
     Bell,
     ChevronRight,
-    ChevronsUpDown,
     CreditCard,
     HouseIcon,
     Sparkles,
     Users2Icon,
 } from "lucide-react";
 
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
     Collapsible,
     CollapsibleContent,
@@ -48,6 +40,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { LogoutButton } from "../ui/LogoutAndManageAccountButton";
 import { UserButtonClient } from "../ui/user-client";
 import { IUser } from "@/types/user";
+import Link from "next/link";
+import BreadCumbs from "../client/breadcumbs";
 
 const data = {
     nav: [
@@ -56,7 +50,7 @@ const data = {
             data: [
                 {
                     title: "Home",
-                    url: "/dashboard",
+                    url: "/",
                     icon: HouseIcon,
                     isActive: true,
                     items: [
@@ -77,7 +71,7 @@ const data = {
             data: [
                 {
                     title: "Home",
-                    url: "/dashboard",
+                    url: "/",
                     icon: HouseIcon,
                     isActive: true,
                     items: [
@@ -102,7 +96,7 @@ const data = {
             data: [
                 {
                     title: "Home",
-                    url: "/dashboard",
+                    url: "/",
                     icon: HouseIcon,
                     isActive: true,
                     items: [
@@ -140,12 +134,12 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
     const pathname = usePathname();
     return (
         <>
-            <Sidebar variant="sidebar">
+            <Sidebar variant="inset" collapsible="icon">
                 <SidebarHeader>
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton size="lg" asChild>
-                                <a href="/">
+                                <Link href="/">
                                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                                         <Image src="/logo.svg" alt="Campus Sybc" width={32} height={32} />
                                     </div>
@@ -153,7 +147,7 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                                         <span className="truncate font-semibold">Campus Sync</span>
                                         <span className="truncate text-xs">{user?.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "Guest"}</span>
                                     </div>
-                                </a>
+                                </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -169,15 +163,16 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                                     defaultOpen={item.isActive}
                                 >
                                     <SidebarMenuItem>
-                                        <SidebarMenuButton asChild tooltip={item.title}>
-                                            <a href={item.url}>
-                                                <item.icon />
+                                        <SidebarMenuButton asChild tooltip={item.title} className={
+                                            pathname === item.url ? "bg-indigo-600 text-white" : "text-gray-900 hover:bg-indigo-600 hover:text-white"}>
+                                            <Link href={item.url} >
+                                                <item.icon className={pathname === item.url ? "bg-indigo-600 text-white" : "text-gray-900 hover:bg-indigo-600 hover:text-white"} />
                                                 <span>{item.title}</span>
-                                            </a>
+                                            </Link>
                                         </SidebarMenuButton>
                                         {item.items?.length ? (
                                             <>
-                                                <CollapsibleTrigger asChild>
+                                                <CollapsibleTrigger asChild className={pathname === item.url ? "bg-indigo-600 text-white" : "text-gray-900 hover:bg-indigo-600 hover:text-white"} >
                                                     <SidebarMenuAction className="data-[state=open]:rotate-90">
                                                         <ChevronRight />
                                                         <span className="sr-only">Toggle</span>
@@ -187,10 +182,11 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                                                     <SidebarMenuSub>
                                                         {item.items?.map((subItem) => (
                                                             <SidebarMenuSubItem key={subItem.title}>
-                                                                <SidebarMenuSubButton asChild>
-                                                                    <a href={subItem.url}>
+                                                                <SidebarMenuSubButton asChild className={pathname === subItem.url ? "bg-indigo-600 text-white" : "text-gray-900 hover:bg-indigo-600 hover:text-white"
+                                                                }>
+                                                                    <Link href={subItem.url}>
                                                                         <span>{subItem.title}</span>
-                                                                    </a>
+                                                                    </Link>
                                                                 </SidebarMenuSubButton>
                                                             </SidebarMenuSubItem>
                                                         ))}
@@ -211,8 +207,7 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                                 <DropdownMenuTrigger asChild>
                                     <SidebarMenuButton
                                         size="lg"
-                                        className="data-[state=open]:bg-indigo-600
-                                         data-[state=open]:text-white"
+                                        className="bg-transparent hover:bg-transparent focus:bg-slate-100 focus:text-slate-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-800 dark:focus:text-slate-50"
                                     >
                                         <Avatar className="h-8 w-8 rounded-full">
                                             <AvatarImage
@@ -229,7 +224,6 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                                                 {user?.email}
                                             </span>
                                         </div>
-                                        <ChevronsUpDown className="ml-auto size-4" />
                                     </SidebarMenuButton>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
@@ -290,32 +284,15 @@ export default function NavBar({ children, user, isAuth }: { children: React.Rea
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarFooter>
-            </Sidebar>
+            </Sidebar >
             <SidebarInset>
                 <header className="flex h-12 shrink-0 items-center gap-2 sticky top-0 bg-white w-full z-50 shadow-sm">
-                    <div className="flex items-center gap-2 cursor-pointer px-4">
+                    <div className="flex flex-row items-center gap-2 cursor-pointer px-4">
                         <SidebarTrigger className="-ml-1" />
                         <Separator orientation="vertical" className="mr-2 h-4" />
-                        <Breadcrumb>
-                            <BreadcrumbList>
-                                <BreadcrumbItem className="hidden md:block">
-                                    <BreadcrumbLink href="/">
-                                        <HouseIcon
-                                            className="text-gray-800 hover:text-gray-600"
-                                            size={20}
-                                        />
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-                                <BreadcrumbSeparator className="hidden md:block" />
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href={pathname}>
-                                        {pathname.replace("/", "").charAt(0).toUpperCase() + pathname.replace("/", "").slice(1)}
-                                    </BreadcrumbLink>
-                                </BreadcrumbItem>
-                            </BreadcrumbList>
-                        </Breadcrumb>
+                        <BreadCumbs />
                     </div>
-                    <div className="ml-auto mr-2">
+                    <div className="ml-auto mr-2 mt-1">
                         <UserButtonClient
                             user={user}
                             isAuth={isAuth}

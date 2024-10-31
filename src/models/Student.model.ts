@@ -9,6 +9,7 @@ export interface StudentType extends Document {
     department: string;
     semester: Number,
     rollNo: Number,
+    isNewUser?: Boolean,
 }
 
 const StudentSchema: Schema<StudentType> = new mongoose.Schema({
@@ -45,6 +46,9 @@ const StudentSchema: Schema<StudentType> = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    isNewUser: {
+        type: Boolean,
+    }
 });
 
 const Student = models.Student as mongoose.Model<StudentType> || mongoose.model<StudentType>("Student", StudentSchema);

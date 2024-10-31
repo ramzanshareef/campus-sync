@@ -9,4 +9,5 @@ export interface UserSession extends IronSession<Object> {
         role?: string;
         photo?: string;
     };
+    isNewUser?: boolean;
 }

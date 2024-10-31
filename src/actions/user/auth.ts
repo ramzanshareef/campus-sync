@@ -8,6 +8,8 @@ import bcryptjs from "bcryptjs";
 import mongoose from "mongoose";
 import { sendOTPForSignUp } from "../emails/auth";
 import SignUpVerification from "@/models/SignupVerification.model";
+import Student from "@/models/Student.model";
+import Faculty from "@/models/Faculty.model";
 
 export async function userSignup({ name, email, password }: { name: string, email: string, password: string }) {
     const result = SignUpFormSchema.safeParse({
@@ -100,6 +102,60 @@ export async function userLogin({ email, password }: { email: string, password: 
     else {
         try {
             await connectDB();
+            let emailDomain = (email as string)?.split("@")[1];
+            if (emailDomain === "student.cs.com") {
+                let user = await Student.findOne({ email: email });
+                if (user && user.password) {
+                    let isMatch = bcryptjs.compareSync(password, user.password);
+                    if (isMatch) {
+                        const session = await getSession();
+                        session.isAuth = true;
+                        session.user = {
+                            _id: user._id as string,
+                            name: user.name,
+                            email: user.email,
+                            photo: user.photo,
+                            role: "student"
+                        };
+                        if (user.isNewUser) {
+                            session.isNewUser = true;
+                        }
+                        await session.save();
+                        return { status: 200, message: "Login Successful" };
+                    }
+                    else {
+                        return { status: 400, message: "Invalid Credentials" };
+                    }
+                }
+                else {
+                    return { status: 400, message: "Invalid Credentials" };
+                }
+            }
+            else if (emailDomain === "faculty.cs.com") {
+                let user = await Faculty.findOne({ email: email });
+                if (user && user.password) {
+                    let isMatch = bcryptjs.compareSync(password, user.password);
+                    if (isMatch) {
+                        const session = await getSession();
+                        session.isAuth = true;
+                        session.user = {
+                            _id: user._id as string,
+                            name: user.name,
+                            email: user.email,
+                            photo: user.photo,
+                            role: "faculty"
+                        };
+                        await session.save();
+                        return { status: 200, message: "Login Successful" };
+                    }
+                    else {
+                        return { status: 400, message: "Invalid Credentials" };
+                    }
+                }
+                else {
+                    return { status: 400, message: "Invalid Credentials" };
+                }
+            }
             let user = await User.findOne({ email: email });
             if (user && user.isVerified === false) {
                 return { status: 400, message: "Email not verified" };

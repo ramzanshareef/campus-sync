@@ -33,7 +33,7 @@ export default function LoginPage() {
     async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
         try {
             setIsLoading(true);
-            let allowedEmailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "tomorjerry.com"];
+            let allowedEmailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "tomorjerry.com", "student.cs.com", "faculty.cs.com"];
             let emailDomain = (values.email as string)?.split("@")[1];
             if (!allowedEmailDomains.includes(emailDomain)) {
                 toast({
