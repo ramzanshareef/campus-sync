@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
 
-const LogoutButton = () => {
+const LogoutButton = ({ className }: { className?: string }) => {
     const router = useRouter();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     return <>
@@ -22,7 +22,7 @@ const LogoutButton = () => {
                 });
                 setIsLoggingOut(false);
             }}
-            className="mt-2 w-1/2 h-6 text-sm p-4"
+            className={"mt-2 w-1/2 h-6 text-sm p-4" + (className ? ` ${className}` : "")}
         >
             {isLoggingOut ? <Loader2Icon className="w-4 h-4 mr-2 animate-spin" /> : <>
                 <LogOutIcon className="w-4 h-4 mr-2" />

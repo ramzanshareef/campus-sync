@@ -24,7 +24,7 @@ export function SidebarContent({ isAuth, user }: { isAuth: boolean, user: IUser 
             <UserButtonClient
                 isAuth={isAuth}
                 user={user}
-            /> {user.name}
+            /> {user?.name}
         </div>
     </>;
 }

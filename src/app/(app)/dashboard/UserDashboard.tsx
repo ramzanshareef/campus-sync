@@ -1,93 +1,12 @@
-import Image from "next/image";
-import { Check, Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import Link from "next/link";
-import { SidebarContent } from "@/components/dashboard/SidebarComponent";
+import { Check } from "lucide-react";
 import { getSession } from "@/lib/session";
-import { IUser } from "@/types/user";
 import { PackageButton } from "@/components/dashboard/PaymentButtons";
 import { packages } from "@/lib/packages";
-
-export default async function UserDashboard() {
-    const session = await getSession();
-    return (
-        <>
-            <Sheet>
-                <header className="absolute">
-                    <nav className="flex flex-row md:flex-col p-4 bg-white md:bg-gray-800 w-fit md:h-screen max-md:fixed max-md:w-screen max-md:h-12 max-md:shadow-md z-50" aria-label="Global">
-                        <div id="greater-than-md-screen" className="max-md:hidden">
-                            <div className="flex mb-2">
-                                <Link href="/" className="flex items-center justify-center gap-4">
-                                    <Image
-                                        className="h-8 w-auto"
-                                        src="/logo.svg"
-                                        alt=""
-                                        height={32}
-                                        width={32}
-                                        priority={false}
-                                    />
-                                    <span className="text-lg font-medium leading-6 text-white">
-                                        Campus Sync
-                                    </span>
-                                </Link>
-                            </div>
-                            <SidebarContent
-                                isAuth={session.isAuth as boolean}
-                                user={session.user as IUser}
-                            />
-                        </div>
-                        <div id="smaller-than-md-screen" className="flex items-center md:hidden">
-                            <Link href="/" className="flex items-center justify-center gap-4 md:hidden">
-                                <Image
-                                    className="h-8 w-auto"
-                                    src="/logo.svg"
-                                    alt="Campus Sync Logo"
-                                    height={32}
-                                    width={32}
-                                    priority={false}
-                                />
-                                <span className="text-lg font-medium leading-6 hover:text-gray-600">
-                                    Campus Sync
-                                </span>
-                            </Link>
-                            <SheetTrigger className="absolute top-0 right-0 px-4 py-3 md:hidden">
-                                <Menu className="w-6 h-6" />
-                            </SheetTrigger>
-                        </div>
-                    </nav>
-                    <SheetContent className="w-fit" >
-                        <SheetTitle className="m-2">
-                            <Link href="/" className="flex flex-row items-center justify-around gap-2">
-                                <Image
-                                    className="h-8 w-auto"
-                                    src="/logo.svg"
-                                    alt="Campus Sync Logo"
-                                    height={32}
-                                    width={32}
-                                    priority={false}
-                                />
-                                <span className="text-lg font-medium leading-6 hover:text-gray-600">
-                                    Campus Sync
-                                </span>
-                            </Link>
-                        </SheetTitle>
-                        <SheetDescription className="w-fit mt-2">
-                            <SidebarContent
-                                isAuth={session.isAuth as boolean}
-                                user={session.user as IUser}
-                            />
-                        </SheetDescription>
-                    </SheetContent>
-                </header>
-            </Sheet>
-        </>
-    );
-}
 
 export async function UserDashboardHome() {
     const session = await getSession();
     return <>
-        <section className="text-gray-600">
+        <div className="text-gray-600">
             <div className="p-5 mx-auto">
                 <div className="flex flex-col mb-2 mx-auto max-w-2xl lg:text-center">
                     <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -119,7 +38,7 @@ export async function UserDashboardHome() {
                                 </span>
                                 Customizable AI based quizzes (upto 5 per faculty)
                             </p>
-                            <PackageButton packageType="LITE" email={session.user?.email} />
+                            <PackageButton packageType="LITE" email={session?.user?.email} />
                             <p className="text-xs text-gray-500 mt-3">
                                 Suitable for small institutions and coaching centers.
                             </p>
@@ -150,7 +69,7 @@ export async function UserDashboardHome() {
                                 </span>
                                 Performance Analytics
                             </p>
-                            <PackageButton packageType="STANDARD" email={session.user?.email} />
+                            <PackageButton packageType="STANDARD" email={session?.user?.email} />
                             <p className="text-xs text-gray-500 mt-3">Suitable for medium sized institutions and universities.</p>
                         </div>
                     </div>
@@ -184,12 +103,12 @@ export async function UserDashboardHome() {
                                 </span>
                                 AI Personalized Learning Experiences
                             </p>
-                            <PackageButton packageType="PREMIUM" email={session.user?.email} />
+                            <PackageButton packageType="PREMIUM" email={session?.user?.email} />
                             <p className="text-xs text-gray-500 mt-3">Suitable for large institutions and universities.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </>;
 }

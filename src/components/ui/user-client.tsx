@@ -9,9 +9,12 @@ const UserButtonClient = ({ isAuth, user }: { isAuth: boolean, user: IUser }) =>
     return isAuth ? <>
         <DropdownMenu>
             <DropdownMenuTrigger title={user?.name} className="p-0 m-0 focus-visible:hidden">
-                <Avatar>
-                    <AvatarImage src={user?.photo} />
-                    <AvatarFallback>{user?.name.split(" ").map(word => word[0].toUpperCase()).join("")}</AvatarFallback>
+                <Avatar className="h-8 w-8 rounded-full">
+                    <AvatarImage
+                        src={user?.photo}
+                        alt={user?.name}
+                    />
+                    <AvatarFallback className="rounded-lg"> {user?.name.split(" ").map((n: string) => n.charAt(0)).join("")}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent
