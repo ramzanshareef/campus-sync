@@ -78,7 +78,7 @@ export const AddStudents = () => {
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Enter Student Department" className="placeholder-gray-400" defaultValue="Enter Student Department" />
+                                                <SelectValue placeholder="Enter Student Department" className="placeholder-gray-400" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>

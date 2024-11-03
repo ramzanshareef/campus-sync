@@ -34,7 +34,7 @@ const UserButton = async () => {
                 </div>
                 <div className="flex gap-x-2 mt-4">
                     <ManageAccount />
-                    <LogoutButton />
+                    <LogoutButton className="w-full border-none bg-red-600 text-white hover:bg-red-700 hover:text-white" />
                 </div>
             </DropdownMenuContent>
         </DropdownMenu>

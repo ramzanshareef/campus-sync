@@ -10,9 +10,12 @@ export default function NotFound() {
             <div className="h-screen w-screen bg-gray-50 flex items-center">
                 <div className="container flex flex-col md:flex-row items-center justify-between px-10 text-gray-700">
                     <div className="w-full lg:w-1/2 mx-8 ">
-                        <div className="text-7xl text-indigo-500 font-dark font-extrabold mb-8"> 404!</div>
-                        <p className="text-2xl md:text-3xl font-light leading-normal mb-8">
-                            😞Sorry we couldn`t find the page you`re looking for
+                        <div className="text-9xl text-indigo-500 font-dark font-extrabold mb-8">404</div>
+                        <p className="text-2xl font-light leading-normal mb-8">
+                            😞 Oops! Page Not Found!
+                        </p>
+                        <p className="text-base font-light leading-normal mb-8">
+                            It seems like the page you are looking for does not exist or might have been removed.
                         </p>
                         <Link
                             href={"/"}

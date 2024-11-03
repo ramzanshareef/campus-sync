@@ -18,7 +18,6 @@ export async function createStudent({ student }: { student: IStudent }) {
     try {
         mongooseSession.startTransaction();
         const password = student.rollNumber.toString();
-        console.log(password);
         const hashedPassword = bcryptjs.hashSync(password, 10);
         const studentData = {
             name: student.name,

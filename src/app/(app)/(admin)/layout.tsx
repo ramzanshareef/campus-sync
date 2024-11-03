@@ -1,12 +1,14 @@
-import { checkAdmin } from "@/lib/session";
-import { redirect } from "next/navigation";
+import RedirectUnAuth from "@/components/client/RedirectUnAuth";
+import { Metadata } from "next";
 
 export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
-    const isAdmin = await checkAdmin();
-    if (!isAdmin) {
-        redirect("/login");
-    }
+    await RedirectUnAuth({ checkIfUserIs: "admin" });
     return <>
         {children}
     </>;
 }
+
+export const metadata: Metadata = {
+    title: "Manage Users",
+    description: "Manage users in your college",
+};

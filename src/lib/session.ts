@@ -56,3 +56,17 @@ export const checkFaculty = async () => {
     }
     return true;
 };
+
+export const checkForRole = async (role: "user" | "sub" | "admin" | "student" | "faculty") => {
+    const session = await getSession();
+    if (!session) {
+        return false;
+    }
+    if (!session.isAuth || !session.user || !session.user.role) {
+        return false;
+    }
+    if (session.user?.role !== role) {
+        return false;
+    }
+    return true;
+};

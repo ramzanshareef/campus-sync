@@ -16,7 +16,6 @@ export const getTotalStudentDetails = async () => {
         return { totalStudents };
     }
     catch (e) {
-        console.error(e);
         return {
             status: 500,
             message: "Internal Server Error"
