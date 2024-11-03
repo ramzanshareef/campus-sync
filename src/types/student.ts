@@ -1,5 +1,6 @@
 export interface IStudent {
     name: string;
+    email: string;
     department: string;
     semester: number;
     rollNumber: number;

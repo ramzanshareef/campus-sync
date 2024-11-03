@@ -11,6 +11,12 @@ export const createStudentSchema = z.object({
         }).regex(/^[a-zA-Z ]+$/, {
             message: "Name should contain only alphabets",
         }),
+    email: z
+        .string({
+            required_error: "Email is required",
+        }).email({
+            message: "Invalid email address",
+        }),
     department: z
         .string({
             required_error: "Department is required",

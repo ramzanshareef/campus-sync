@@ -81,7 +81,10 @@ export const AddFaculties = () => {
                             control={form.control}
                             name="email"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem
+                                    className="opacity-70 cursor-not-allowed"
+                                    title="Email ID is auto-generated based on Name"
+                                >
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input type="email" placeholder="Email ID"

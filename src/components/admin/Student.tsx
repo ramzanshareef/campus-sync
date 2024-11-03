@@ -21,6 +21,7 @@ export const AddStudents = () => {
         resolver: zodResolver(createStudentSchema),
         defaultValues: {
             name: "",
+            email: "",
             department: "",
             semester: "",
             rollNumber: 0,
@@ -32,6 +33,7 @@ export const AddStudents = () => {
         let res = await createStudent({
             student: {
                 name: values.name,
+                email: values.email,
                 department: values.department,
                 semester: parseInt(values.semester),
                 rollNumber: values.rollNumber,
@@ -71,6 +73,28 @@ export const AddStudents = () => {
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Enter Student Name" {...field} />
+                                    </FormControl>
+                                    <FormMessage className="text-sm" />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem
+                                    className="opacity-70 cursor-not-allowed"
+                                    title="Email ID is auto-generated based on Roll Number"
+                                >
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Student Email ID"
+                                            type="email"
+                                            disabled={true}
+                                            className="disabled:opacity-70"
+                                            defaultValue={form.watch("email")}
+                                            {...field} />
                                     </FormControl>
                                     <FormMessage className="text-sm" />
                                 </FormItem>
@@ -121,7 +145,13 @@ export const AddStudents = () => {
                                 <FormItem>
                                     <FormLabel>Roll Number</FormLabel>
                                     <FormControl>
-                                        <Input type="number" placeholder="Enter Roll Number" {...field} onChange={field.onChange} />
+                                        <Input type="number" placeholder="Enter Roll Number" {...field} onChange={(e: any) => {
+                                            form.setValue("rollNumber", e.target.value as unknown as number);
+                                            form.setValue("email", e.target.value.length > 0 ? e.target.value + "@student.cs.com" : "");
+                                        }}
+                                            minLength={10}
+                                            maxLength={10}
+                                        />
                                     </FormControl>
                                     <FormMessage className="text-sm" />
                                 </FormItem>

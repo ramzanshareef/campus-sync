@@ -67,7 +67,7 @@ export async function createStudent({ student }: { student: IStudent }) {
         const studentData = {
             name: student.name,
             department: student.department,
-            email: student.rollNumber + "@student.cs.com",
+            email: student.email,
             password: hashedPassword,
             semester: student.semester,
             rollNo: student.rollNumber,
