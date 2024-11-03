@@ -1,14 +1,14 @@
 "use client";
 
 import { DataTable } from "@/components/ui/DataTable";
-import { IStudentView } from "@/types/student";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ArrowUpDownIcon, MoreHorizontal, PencilIcon, Trash2Icon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { IFacultyView } from "@/types/faculty";
 
-const columns: ColumnDef<IStudentView>[] = [
+const columns: ColumnDef<IFacultyView>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -40,55 +40,6 @@ const columns: ColumnDef<IStudentView>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Full Name
-                    <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-    },
-    {
-        accessorKey: "department",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Branch
-                    <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-    },
-    {
-        accessorKey: "semester",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Year (Semester)
-                    <ArrowUpDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => {
-            return (
-                <span>
-                    {Math.ceil(row.original.semester / 2)} ({row.original.semester})
-                </span>
-            );
-        },
-    },
-    {
-        accessorKey: "rollNo",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Roll No
                     <ArrowUpDownIcon className="ml-2 h-4 w-4" />
                 </Button>
             );
@@ -133,10 +84,10 @@ const columns: ColumnDef<IStudentView>[] = [
     },
 ];
 
-export const StudentsTable = ({ students }: { students: IStudentView[] }) => {
+export const FacultyTable = ({ faculties }: { faculties: IFacultyView[] }) => {
     return (
         <>
-            <DataTable columns={columns} data={students} />
+            <DataTable columns={columns} data={faculties} />
         </>
     );
 };

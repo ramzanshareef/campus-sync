@@ -1,11 +1,11 @@
-import { getAllStudentDetails } from "@/actions/admin/students";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import { StudentsTable } from "./StudentsTable";
+import { FacultyTable } from "./FacultyTable";
+import { getAllFacultyDetails } from "@/actions/admin/faculties";
 
 export default async function ViewTotalStudent({ searchParams }: { searchParams: Params }) {
     let currentPage = Number(searchParams?.page || 1);
-    const data = await getAllStudentDetails(currentPage);
+    const data = await getAllFacultyDetails(currentPage);
     return <>
-        <StudentsTable students={data.students} />
+        <FacultyTable faculties={data.faculties} />
     </>;
 }

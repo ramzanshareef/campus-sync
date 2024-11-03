@@ -70,3 +70,13 @@ export const checkForRole = async (role: "user" | "sub" | "admin" | "student" | 
     }
     return true;
 };
+
+export const isAdmin = async () => {
+    const session = await getSession();
+    if (!session || !session.isAuth || session.isAuth === undefined || session.user?.role !== "admin") {
+        throw new Error("Unauthorized", {
+            cause: "User is not an admin",
+        });
+    }
+    return true;
+};

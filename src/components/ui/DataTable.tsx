@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <>
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 overflow-auto scrollbar-hidden">
                 <Input
                     placeholder="Filter by name"
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
                     className="max-w-sm"
                 />
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-auto scrollbar-hidden">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -91,7 +91,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex flex-row justify-between items-center mt-4">
+            <div className="flex flex-row justify-between items-center mt-4 overflow-auto scrollbar-hidden">
                 <div>
                     <DataTableViewOptions table={table} />
                 </div>

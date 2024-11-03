@@ -31,3 +31,33 @@ export const ViewStudentsButton = () => {
         </button>
     );
 };
+
+export const AddFacultyButton = () => {
+    const router = useRouter();
+    return (
+        <button
+            className="bg-indigo-500 hover:bg-indigo-700 text-white py-2 px-4 rounded-md my-4 mr-2"
+            onClick={async (e) => {
+                e.preventDefault();
+                router.push("/users/faculty/add");
+            }}
+        >
+            Add Faculty
+        </button>
+    );
+};
+
+export const ViewFacultyButton = () => {
+    const router = useRouter();
+    return (
+        <button
+            className="bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-4 rounded-md my-4"
+            onClick={async (e) => {
+                e.preventDefault();
+                router.push("/users/faculty/view");
+            }}
+        >
+            View All Faculty
+        </button>
+    );
+};

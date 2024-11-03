@@ -8,6 +8,7 @@ export interface IStudent {
 export interface IStudentView {
     _id: string;
     name: string;
+    email: string;
     department: string;
     semester: number;
     rollNo: number;

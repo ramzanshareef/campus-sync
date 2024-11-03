@@ -8,7 +8,7 @@ import { createStudentSchema } from "@/schemas/student";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { createStudent } from "@/actions/admin/create";
+import { createStudent } from "@/actions/admin/students";
 import { useToast } from "@/lib/hooks/use-toast";
 import { useState } from "react";
 import { Loader2Icon } from "lucide-react";

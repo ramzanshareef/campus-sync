@@ -8,6 +8,8 @@ export const createStudentSchema = z.object({
             message: "Name should be atleast 3 characters long",
         }).max(50, {
             message: "Name should be atmost 50 characters long",
+        }).regex(/^[a-zA-Z ]+$/, {
+            message: "Name should contain only alphabets",
         }),
     department: z
         .string({

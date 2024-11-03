@@ -1,6 +1,6 @@
 import { StudentStatsSkeleton } from "@/components/skeletons/Admin";
 import { Suspense } from "react";
-import { getTotalStudentDetails } from "@/actions/admin/stats";
+import { getTotalStudentDetails } from "@/actions/admin/students";
 import { AddStudentButton, ViewStudentsButton } from "@/components/client/btn";
 import { Metadata } from "next";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
