@@ -29,7 +29,14 @@ export const AddStudents = () => {
 
     async function onSubmit(values: z.infer<typeof createStudentSchema>) {
         setIsLoading(true);
-        let res = await createStudent({ student: values });
+        let res = await createStudent({
+            student: {
+                name: values.name,
+                department: values.department,
+                semester: parseInt(values.semester),
+                rollNumber: values.rollNumber,
+            }
+        });
         setIsLoading(false);
         form.resetField("department");
         form.reset();

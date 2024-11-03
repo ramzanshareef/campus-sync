@@ -32,12 +32,12 @@ export const getAllStudentDetails = async (currentPage: number) => {
         await connectDB();
         let college = userSession.user._id;
         if (college) {
-            let students = await Student.find({ college }).sort({ rollNo: 1 }).skip((currentPage - 1) * 5).limit(5);
+            let students = await Student.find({ college }).skip((currentPage - 1) * 5).limit(5).select("-password");
             let length = await Student.countDocuments({ college });
             revalidatePath("/users/student/view");
             return { status: 200, students: JSON.parse(JSON.stringify(students)), length };
         }
-        let students = await Student.find({}).sort({ rollNo: 1 }).skip((currentPage - 1) * 5).limit(5);
+        let students = await Student.find({}).skip((currentPage - 1) * 5).limit(5).select("-password");
         let length = await Student.countDocuments({ college });
         revalidatePath("/users/student/view");
         return { status: 200, students: JSON.parse(JSON.stringify(students)), length };
