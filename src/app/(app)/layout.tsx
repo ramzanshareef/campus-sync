@@ -6,7 +6,7 @@ import { IUser } from "@/types/user";
 export default async function Layout({ children }: { children: React.ReactNode }) {
     const userData = await getUser();
     return <>
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
             <NavBar user={userData?.user as IUser} isAuth={userData?.isAuth} > {children} </NavBar>
         </SidebarProvider>
     </>;

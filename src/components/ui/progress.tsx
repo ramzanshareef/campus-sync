@@ -47,15 +47,15 @@ const Progress = React.forwardRef<
     React.ElementRef<typeof ProgressPrimitive.Root>,
     ProgressProps
 >(({ className, value, variant, rootVariant, type = "default", maxValue = 100, ...props }, ref) => {
+    const percentage = (value / maxValue) * 100;
     const computedVariant = React.useMemo(() => {
         if (type === "dynamic") {
-            const percentage = (value / maxValue) * 100;
             if (percentage >= 80) return "critical";
             if (percentage >= 60) return "warning";
             return variant;
         }
         return variant;
-    }, [type, value, maxValue, variant]);
+    }, [type, variant, percentage]);
 
     return (
         <ProgressPrimitive.Root
@@ -65,7 +65,7 @@ const Progress = React.forwardRef<
         >
             <ProgressPrimitive.Indicator
                 className={cn(progressVariants({ variant: computedVariant }))}
-                style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+                style={{ width: `${percentage}%` }}
             />
         </ProgressPrimitive.Root>
     );

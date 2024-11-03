@@ -5,6 +5,7 @@ import { AddStudentButton, ViewStudentsButton } from "@/components/client/btn";
 import { Metadata } from "next";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { UsersIcon } from "lucide-react";
 
 export default async function CollegeStudents() {
     const { totalStudents } = await getTotalStudentDetails();
@@ -14,7 +15,10 @@ export default async function CollegeStudents() {
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-base font-normal">Total Students</CardTitle>
+                            <CardTitle className="text-base font-normal flex flex-row justify-between w-full">
+                                <span>Total Students</span>
+                                <UsersIcon size={24} className="ml-2" />
+                            </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">{totalStudents}</div>
