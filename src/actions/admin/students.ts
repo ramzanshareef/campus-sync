@@ -5,8 +5,9 @@ import { getUser } from "@/lib/user/user";
 import Student from "@/models/Student.model";
 import { revalidatePath } from "next/cache";
 import bcryptjs from "bcryptjs";
-import { IStudent } from "@/types/student";
+import { IStudent, IStudentView } from "@/types/student";
 import mongoose from "mongoose";
+import { isAdmin } from "@/lib/session";
 
 export const getTotalStudentDetails = async () => {
     let userSession = await getUser();
@@ -56,12 +57,10 @@ export const getAllStudentDetails = async (currentPage: number) => {
 export async function createStudent({ student }: { student: IStudent }) {
     await connectDB();
     const mongooseSession = await mongoose.startSession();
-    let isAuth = await getUser();
-    if (!isAuth || !isAuth.user || isAuth.user?.role !== "admin") {
-        return { status: 401, message: "Unauthorized" };
-    }
     try {
+        await isAdmin();
         mongooseSession.startTransaction();
+        let isAuth = await getUser();
         const password = student.rollNumber.toString();
         const hashedPassword = bcryptjs.hashSync(password, 10);
         const studentData = {
@@ -71,7 +70,7 @@ export async function createStudent({ student }: { student: IStudent }) {
             password: hashedPassword,
             semester: student.semester,
             rollNo: student.rollNumber,
-            college: isAuth.user._id,
+            college: isAuth?.user?._id,
             isNewUser: true,
         };
         let exisUser = await Student.findOne({
@@ -91,6 +90,67 @@ export async function createStudent({ student }: { student: IStudent }) {
         await mongooseSession.abortTransaction();
         console.log(error.message);
         return { status: 400, message: "Student Creation Failed" };
+    }
+    finally {
+        await mongooseSession.endSession();
+    }
+}
+
+export async function updateStudent({ student }: { student: IStudentView }) {
+    await connectDB();
+    const mongooseSession = await mongoose.startSession();
+    try {
+        await isAdmin();
+        let isAuth = await getUser();
+        mongooseSession.startTransaction();
+        const studentData = {
+            name: student.name,
+            department: student.department,
+            email: student.email,
+            semester: student.semester,
+            rollNo: student.rollNo,
+        };
+        let exisUser = await Student.findOne({
+            $or: [
+                { email: studentData.email },
+                { rollNo: studentData.rollNo },
+                { college: isAuth?.user?._id }
+            ]
+        });
+        if (!exisUser) {
+            return { status: 400, message: "Student Doesn't Exists" };
+        }
+        await Student.updateOne({ _id: student._id, college: isAuth?.user?._id }, studentData, { session: mongooseSession });
+        await mongooseSession.commitTransaction();
+        revalidatePath("/users/student/view");
+        return { status: 200, message: "Student Updated Successfully" };
+    } catch (error: any) {
+        await mongooseSession.abortTransaction();
+        return { status: 400, message: "Student Updation Failed - " + error.message };
+    }
+    finally {
+        await mongooseSession.endSession();
+    }
+}
+
+export async function deleteStudent({ studentId }: { studentId: string }) {
+    await connectDB();
+    const mongooseSession = await mongoose.startSession();
+    try {
+        await isAdmin();
+        let isAuth = await getUser();
+        mongooseSession.startTransaction();
+        let exisUser = await Student.findOne({ _id: studentId, college: isAuth?.user?._id });
+        if (!exisUser) {
+            return { status: 400, message: "Student Doesn't Exists" };
+        }
+        await Student.deleteOne({ _id: studentId, college: isAuth?.user?._id }, { session: mongooseSession });
+        await mongooseSession.commitTransaction();
+        revalidatePath("/users/student/view");
+        return { status: 200, message: "Student Deleted Successfully" };
+    } catch (error: any) {
+        await mongooseSession.abortTransaction();
+        return { status: 400, message: "Student Deletion Failed - " + error.message };
     }
     finally {
         await mongooseSession.endSession();

@@ -23,7 +23,7 @@ export const AddStudents = () => {
             name: "",
             email: "",
             department: "",
-            semester: "",
+            semester: 0,
             rollNumber: 0,
         }
     });
@@ -35,7 +35,7 @@ export const AddStudents = () => {
                 name: values.name,
                 email: values.email,
                 department: values.department,
-                semester: parseInt(values.semester),
+                semester: values.semester,
                 rollNumber: values.rollNumber,
             }
         });
@@ -132,7 +132,13 @@ export const AddStudents = () => {
                                 <FormItem>
                                     <FormLabel>Semester</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter Semester" {...field} type="number" min={1} max={8} />
+                                        <Input placeholder="Enter Semester" {...field} type="number"
+                                            min={1}
+                                            max={8}
+                                            onChange={(e: any) => {
+                                                form.setValue("semester", parseInt(e.target.value));
+                                            }}
+                                        />
                                     </FormControl>
                                     <FormMessage className="text-sm" />
                                 </FormItem>
@@ -145,10 +151,14 @@ export const AddStudents = () => {
                                 <FormItem>
                                     <FormLabel>Roll Number</FormLabel>
                                     <FormControl>
-                                        <Input type="number" placeholder="Enter Roll Number" {...field} onChange={(e: any) => {
-                                            form.setValue("rollNumber", e.target.value as unknown as number);
-                                            form.setValue("email", e.target.value.length > 0 ? e.target.value + "@student.cs.com" : "");
-                                        }}
+                                        <Input
+                                            type="number"
+                                            placeholder="Enter Roll Number"
+                                            {...field}
+                                            onChange={(e: any) => {
+                                                form.setValue("rollNumber", parseInt(e.target.value));
+                                                form.setValue("email", e.target.value.length > 0 ? e.target.value + "@student.cs.com" : "");
+                                            }}
                                             minLength={10}
                                             maxLength={10}
                                         />

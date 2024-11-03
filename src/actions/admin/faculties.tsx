@@ -88,3 +88,55 @@ export async function createFaculty({ faculty }: { faculty: IFaculty }) {
         await mongooseSession.endSession();
     }
 }
+
+export async function updateFaculty({ facultyId, faculty }: { facultyId: string, faculty: IFaculty }) {
+    await connectDB();
+    const mongooseSession = await mongoose.startSession();
+    try {
+        await isAdmin();
+        let isAuth = await getUser();
+        mongooseSession.startTransaction();
+        let exisUser = await Faculty.findOne({ _id: facultyId, college: isAuth.user?._id });
+        if (!exisUser) {
+            mongooseSession.abortTransaction();
+            return { status: 400, message: "Faculty Not Found" };
+        }
+        await Faculty.updateOne({ _id: facultyId, college: isAuth.user?._id }, faculty);
+        revalidatePath("/users/faculty/view");
+        await mongooseSession.commitTransaction();
+        return { status: 200, message: "Faculty Updated Successfully" };
+    }
+    catch (error: any) {
+        await mongooseSession.abortTransaction();
+        return { status: 400, message: "Internal Server Error" };
+    } finally {
+        await mongooseSession.endSession();
+    }
+}
+
+export async function deleteFaculty({ facultyId }: { facultyId: string }) {
+    await connectDB();
+    const mongooseSession = await mongoose.startSession();
+    try {
+        await isAdmin();
+        let isAuth = await getUser();
+        mongooseSession.startTransaction();
+        let exisUser = await Faculty.findOne({
+            _id: facultyId,
+            college: isAuth.user?._id
+        });
+        if (!exisUser) {
+            await mongooseSession.abortTransaction();
+            return { status: 400, message: "Faculty Not Found" };
+        }
+        await Faculty.deleteOne({ _id: facultyId, college: isAuth.user?._id });
+        await mongooseSession.commitTransaction();
+        revalidatePath("/users/faculty/view");
+        return { status: 200, message: "Faculty Deleted Successfully" };
+    } catch (error: any) {
+        await mongooseSession.abortTransaction();
+        return { status: 400, message: "Internal Server Error" };
+    } finally {
+        await mongooseSession.endSession();
+    }
+}
