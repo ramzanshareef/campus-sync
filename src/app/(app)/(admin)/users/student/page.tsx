@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { UsersIcon } from "lucide-react";
 
 export default async function CollegeStudents() {
-    const { totalStudents } = await getTotalStudentDetails();
+    const { totalStudents, maxStudents } = await getTotalStudentDetails();
     return (
         <>
             <Suspense fallback={<StudentStatsSkeleton />} >
@@ -25,9 +25,9 @@ export default async function CollegeStudents() {
                             <p className="text-xs text-indigo-500">
                                 +20.1% from last month
                             </p>
-                            <Progress value={totalStudents as number} variant="primary" rootVariant="primary" type="dynamic" maxValue={100} className="h-2 rounded-sm mt-2" />
+                            <Progress value={totalStudents as number} variant="primary" rootVariant="primary" type="dynamic" maxValue={maxStudents} className="h-2 rounded-sm mt-2" />
                             <span className="text-xs text-black">
-                                {totalStudents}/100
+                                {totalStudents}/{maxStudents}
                             </span>
                         </CardContent>
                     </Card>

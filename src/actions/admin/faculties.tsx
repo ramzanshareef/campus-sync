@@ -8,6 +8,7 @@ import { IFaculty } from "@/types/faculty";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import bcryptjs from "bcryptjs";
+import College from "@/models/College.model";
 
 export const getTotalFacultyDetails = async () => {
     let userSession = await getUser();
@@ -16,8 +17,10 @@ export const getTotalFacultyDetails = async () => {
     }
     try {
         await connectDB();
+        await isAdmin();
         let totalFaculties = await Faculty.find({ college: userSession.user?._id }).countDocuments({});
-        return { status: 200, totalFaculties };
+        let college = await College.findOne({ admin: userSession.user?._id });
+        return { status: 200, totalFaculties, maxFaculty: college?.maxFaculty };
     }
     catch (e) {
         return {
@@ -61,6 +64,12 @@ export async function createFaculty({ faculty }: { faculty: IFaculty }) {
         await isAdmin();
         mongooseSession.startTransaction();
         const adminDetails = await getUser();
+        let userSession = await getUser();
+        let totalFaculty = await Faculty.find({ college: userSession.user?._id }).countDocuments({});
+        let college = await College.findOne({ admin: userSession.user?._id });
+        if (college && college.maxFaculty && totalFaculty >= college?.maxFaculty) {
+            return { status: 400, message: "Max Limit Reached, Please Extend your package or contact support(if you think this is a mistake)" };
+        }
         const password = faculty.name.split(" ").join("").toLowerCase();
         const hashedPassword = bcryptjs.hashSync(password, 10);
         const facultyData = {

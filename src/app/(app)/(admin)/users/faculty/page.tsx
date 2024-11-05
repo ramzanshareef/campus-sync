@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { UsersRoundIcon } from "lucide-react";
 
 export default async function CollegeFaculty() {
-    const { totalFaculties } = await getTotalFacultyDetails();
+    const { totalFaculties, maxFaculty } = await getTotalFacultyDetails();
     return (
         <>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -21,9 +21,9 @@ export default async function CollegeFaculty() {
                         <p className="text-xs text-indigo-500">
                             +20.1% from last month
                         </p>
-                        <Progress value={totalFaculties as number} variant="primary" rootVariant="primary" type="dynamic" maxValue={10} className="h-2 rounded-sm mt-2" />
+                        <Progress value={totalFaculties as number} variant="primary" rootVariant="primary" type="dynamic" maxValue={maxFaculty} className="h-2 rounded-sm mt-2" />
                         <span className="text-xs text-black">
-                            {totalFaculties}/10
+                            {totalFaculties}/{maxFaculty}
                         </span>
                     </CardContent>
                 </Card>

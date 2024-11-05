@@ -8,6 +8,7 @@ import bcryptjs from "bcryptjs";
 import { IStudent, IStudentView } from "@/types/student";
 import mongoose from "mongoose";
 import { isAdmin } from "@/lib/session";
+import College from "@/models/College.model";
 
 export const getTotalStudentDetails = async () => {
     let userSession = await getUser();
@@ -16,8 +17,10 @@ export const getTotalStudentDetails = async () => {
     }
     try {
         await connectDB();
+        await isAdmin();
         let totalStudents = await Student.find({ college: userSession.user?._id }).countDocuments({});
-        return { totalStudents };
+        let college = await College.findOne({ admin: userSession.user?._id });
+        return { totalStudents, maxStudents: college?.maxStudents };
     }
     catch (e) {
         return {
@@ -60,6 +63,12 @@ export async function createStudent({ student }: { student: IStudent }) {
     try {
         await isAdmin();
         mongooseSession.startTransaction();
+        let userSession = await getUser();
+        let totalStudents = await Student.find({ college: userSession.user?._id }).countDocuments({});
+        let college = await College.findOne({ admin: userSession.user?._id });
+        if (college && college.maxStudents && totalStudents >= college?.maxStudents) {
+            return { status: 400, message: "Max Limit Reached, Please Extend your package or contact support(if you think this is a mistake)" };
+        }
         let isAuth = await getUser();
         const password = student.rollNumber.toString();
         const hashedPassword = bcryptjs.hashSync(password, 10);
