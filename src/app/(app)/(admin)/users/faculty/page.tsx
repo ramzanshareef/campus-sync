@@ -3,6 +3,7 @@ import { getTotalFacultyDetails } from "@/actions/admin/faculties";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { UsersRoundIcon } from "lucide-react";
+import { Metadata } from "next";
 
 export default async function CollegeFaculty() {
     const { totalFaculties, maxFaculty } = await getTotalFacultyDetails();
@@ -33,3 +34,8 @@ export default async function CollegeFaculty() {
         </>
     );
 }
+
+export const metadata: Metadata = {
+    title: "Manage Faculty",
+    description: "Manage faculty members in the college.",
+};

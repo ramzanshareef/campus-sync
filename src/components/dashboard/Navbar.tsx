@@ -1,38 +1,10 @@
 "use client";
 
-import {
-    BadgeCheck,
-    Bell,
-    ChevronRight,
-    CreditCard,
-    HouseIcon,
-    Sparkles,
-    Users2Icon,
-} from "lucide-react";
+import { BadgeCheck, Bell, BookOpenTextIcon, ChevronRight, CreditCard, HouseIcon, Sparkles, Users2Icon } from "lucide-react";
 
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarInset,
-    SidebarMenu,
-    SidebarMenuAction,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
-    SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -122,6 +94,38 @@ const data = {
                         {
                             title: "Faculty",
                             url: "/users/faculty",
+                        },
+                    ],
+                }
+            ],
+        },
+        {
+            role: "faculty",
+            data: [
+                {
+                    title: "Home",
+                    url: "/",
+                    icon: HouseIcon,
+                    isActive: true,
+                    items: [
+                        {
+                            title: "Dashboard",
+                            url: "/dashboard",
+                        },
+                        {
+                            title: "Settings",
+                            url: "#",
+                        },
+                    ],
+                },
+                {
+                    title: "Courses",
+                    url: "/courses",
+                    icon: BookOpenTextIcon,
+                    items: [
+                        {
+                            title: "Add Course",
+                            url: "/courses/add",
                         },
                     ],
                 }

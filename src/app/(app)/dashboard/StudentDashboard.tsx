@@ -1,7 +1,7 @@
 import { NewStudentAlert } from "@/components/student/home";
 import { getSession } from "@/lib/session";
 
-export default async function StudentDashboard() {
+export default async function StudentDashboardHome() {
     const session = await getSession();
     return <>
         <div>
