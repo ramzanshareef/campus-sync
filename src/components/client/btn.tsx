@@ -61,3 +61,21 @@ export const ViewFacultyButton = () => {
         </button>
     );
 };
+
+const AddCourseBtn = () => {
+    const router = useRouter();
+    return (
+        <>
+            <button
+                className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded float-right"
+                onClick={() => {
+                    router.push("/courses/add");
+                }}
+            >
+                Add
+            </button>
+        </>
+    );
+};
+
+export default AddCourseBtn;

@@ -1,6 +1,10 @@
+import { AddCourseForm } from "@/components/forms/facultyForms";
+import { getUser } from "@/lib/user/user";
+import { IUser } from "@/types/user";
+
 export default async function AddCoursePage() {
+    const { user } = await getUser();
     return <>
-        <h1>Add Course</h1>
-        <p>This is the add course page for faculty.</p>
+        <AddCourseForm user={user as IUser} />
     </>;
 }
